@@ -1,0 +1,9 @@
+Hey guys, this is my text file.
+Just go to the top of this repo and click fork.
+Make a fork to your own repo.
+Upload your text file to your fork of the repo with the Upload File button.
+Then once you uploaded the file to your fork, go back to the main one.
+Then make a pull request.
+Click compare across forks.
+Have the master repo on the left and your repo on the right.
+Then just submit.
