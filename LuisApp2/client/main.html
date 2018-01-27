@@ -1,0 +1,26 @@
+<head>
+  <title>map demo</title>
+</head>
+
+<body>
+  <h1>Geolocation example</h1>
+  {{> map}}
+</body>
+
+<template name="map">
+  <div class="map-container">
+    <!-- If there is a geolocation, display map
+    (Display markers of the water stations is still in progress.) -->
+    {{#unless geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+
+    <!-- If no geolocation found, display error and map
+    (Display markers of the water stations is still in progress.)-->
+    {{else}}
+      Geolocation failed: {{geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+    {{/unless}}
+    
+    {{calculateDistance}}
+  </div>
+</template>
