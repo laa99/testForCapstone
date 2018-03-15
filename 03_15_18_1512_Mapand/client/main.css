@@ -1,0 +1,6 @@
+/* CSS declarations go here */
+.map-container {
+  width: 400px;
+  max-width: 95%;
+  height: 200px;
+}
