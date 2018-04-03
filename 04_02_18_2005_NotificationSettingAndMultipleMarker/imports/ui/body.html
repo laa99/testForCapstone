@@ -1,0 +1,195 @@
+
+<body>
+
+    <h1>Citizens Science</h1>
+    <!--Create form to ask users to give details of submission : name of gauge, water height, other comments-->
+
+</body>
+
+<template name="Home">
+  <div class = "home">
+    {{> map}}
+    {{> distance}}
+  <h2> Rio De Flag at Aspen Valley (south): </h2>
+    {{> NavOne}}
+    <br>
+  <h2> Rio De Flag at Aspen Valley (north): </h2>
+    {{> NavTwo}}
+    {{> notificationButton}}
+  </div>
+</template>
+
+<template name="GuestHome">
+  <div class = "guesthome">
+    {{> map}}
+    {{> distance}}
+  <h2> Rio De Flag at Aspen Valley (south): </h2>
+    {{> GuestNavOne}}
+    <br>
+  <h2> Rio De Flag at Aspen Valley (north): </h2>
+    {{> GuestNavTwo}}
+  </div>
+</template>
+
+<template name = "login">
+  <h3>Login</h3>
+  <form class="login">
+    <p><input type="submit" value="Login"></p>
+  </form>
+  <h3>Guest</h3>
+  <form class="guestLogin">
+    <p><input type="submit" value="Login"></p>
+  </form>
+  <h3>Register to Be a Citizen Scientist</h3>
+  <form action = "https://cshci.cs.mtu.edu/water/register/register">
+    <input type = "submit" value = "Register on Website">
+  </form>
+</template>
+
+<template name="Chart">
+  <div class="row">
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+</template>
+
+<template name="gaugeone">
+  <div class = "gaugeone">
+  <a href="/Home">Home</a>
+    <form class="user_submission">
+      <h3>Rio De Flag at Aspen Valley (south)</h3>
+      <input type="text" name="height" placeholder="Water height" class=" waterheight"/><br>
+      <textarea name="comments" rows="5" cols="30" placeholder="Any other notable conditions"></textarea><br>
+      <h3>Choose Image of Water Gauge</h3>
+      <input type="file" name="image" id="gaugeimage"><br><br>
+      <button class = "submit">Submit</button><br><br>
+    </form>
+  </div>
+</template>
+
+<template name ="gaugeonesubmission">
+  <div class = "gaugeonesubmission">
+    {{> Chart}}
+    <br><br>
+    <a href ="/Home">Home</a><br><br>
+    <a href ="gaugeone">Submit Data For This Gauge</a>
+    <h3>Submissions for Rio De Flag at Aspen Valley (south)</h3>
+    <ul>
+      {{#each submitted_data}}
+      {{> data}}
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name ="gaugeonesubmissionGuest">
+  <div class = "gaugeonesubmissionGuest">
+  <a href ="/GuestHome">Home</a><br><br>
+    <form class="user_submission">
+      <h3>Rio De Flag at Aspen Valley (south)</h3>
+      <input type="text" name="height" placeholder="Water height" class=" waterheight"/><br>
+      <textarea name="comments" rows="5" cols="30" placeholder="Any other notable conditions"></textarea><br>
+      <h3>Choose Image of Water Gauge</h3>
+      <input type="file" name="image" id="gaugeimage"><br><br>
+      <button class = "submit">Submit</button><br><br>
+    </form>
+  </div>
+</template>
+
+<template name="data">
+    <li>{{height}} {{comments}}</li>
+</template>
+
+<template name="NavOne">
+      <a href="/gaugeone">Submit Data For This Location</a><br><br>
+      <a href="/gaugeonesubmission">View Submitted Data</a>
+</template>
+
+<template name="GuestNavOne">
+      <a href="/gaugeonesubmissionGuest">Submit Data For This Location</a><br><br>
+</template>
+
+<template name="map">
+  <div class="map-container">
+      {{> googleMap name="map" options=mapOptions}}
+  </div>
+</template>
+
+<template name="distance">
+  {{calculateDistance}}
+</template>
+
+<template name="NavTwo">
+      <a href="/gaugetwo">Submit Data For This Location</a><br><br>
+      <a href="/gaugetwosubmission">View Submitted Data</a>
+</template>
+
+<template name="GuestNavTwo">
+      <a href="/gaugetwosubmissionGuest">Submit Data For This Location</a><br><br>
+</template>
+
+<template name="gaugetwo">
+  <div class = "gaugetwo">
+  <a href="/Home">Home</a>
+    <form class="user_submission">
+      <h3>Rio De Flag at Aspen Valley (north)</h3>
+      <input type="text" name="height" placeholder="Water height" class=" waterheight"/><br>
+      <textarea name="comments" rows="5" cols="30" placeholder="Any other notable conditions"></textarea><br>
+      <h3>Choose Image of Water Gauge</h3>
+      <input type="file" name="image" id="gaugeimage"><br><br>
+      <button class = "submit">Submit</button><br><br>
+    </form>
+  </div>
+</template>
+
+<template name ="gaugetwosubmission">
+  <div class = "gaugetwosubmission">
+    {{> Chart}}
+    <br><br>
+    <a href ="/Home">Home</a><br><br>
+    <a href ="gaugeone">Submit Data For This Gauge</a>
+    <h3>Submissions for Rio De Flag at Aspen Valley (north)</h3>
+    <ul>
+      {{#each submitted_data}}
+      {{> data}}
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name ="gaugetwosubmissionGuest">
+  <div class = "gaugetwosubmissionGuest">
+  <a href ="/GuestHome">Home</a><br><br>
+    <form class="user_submission">
+      <h3>Rio De Flag at Aspen Valley (north)</h3>
+      <input type="text" name="height" placeholder="Water height" class=" waterheight"/><br>
+      <textarea name="comments" rows="5" cols="30" placeholder="Any other notable conditions"></textarea><br>
+      <h3>Choose Image of Water Gauge</h3>
+      <input type="file" name="image" id="gaugeimage"><br><br>
+      <button class = "submit">Submit</button><br><br>
+    </form>
+  </div>
+</template>
+
+
+<!--Notification Settings-->
+<template name = "notificationButton">
+  <br>
+  <p>Notification Settings:</p>
+   <form class="notificationTask">
+     <input type="radio" name="notificationToggleForm" value="on">On <br>
+     <input type="radio" name="notificationToggleForm" value="off">Off <br>
+     <br>
+     <p>Time When Receive Notifications:</p>
+     <input type = "radio" name = "notificationTimeForm" value="3" id="timeRadio"> 3 minutes <br>
+     <input type = "radio" name = "notificationTimeForm" value="5" id="timeRadio"> 5 minutes <br>
+     <input type = "radio" name = "notificationTimeForm" value="30" id="timeRadio"> 30 minutes <br>
+     <input type = "radio" name = "notificationTimeForm" value="60" id="timeRadio"> 1 hour <br>
+     <br>
+     <p>Distance to Receive Notification (in meters)</p>
+     <input type = "radio" name = "notificationProxForm" value="3" id="proxRadio"> 5 <br>
+     <input type = "radio" name = "notificationProxForm" value="50" id="proxRadio"> 50  <br>
+     <input type = "radio" name = "notificationProxForm" value="100" id="proxRadio"> 100 <br>
+     <input type = "radio" name = "notificationProxForm" value="300" id="proxRadio"> 300 <br><br>
+     <input type = "submit" value = "Confirm">
+   </form>
+</template>
