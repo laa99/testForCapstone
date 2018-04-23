@@ -1,0 +1,226 @@
+<body>
+</body>
+
+<template name="Home">
+  <div class = "home">
+    {{> map}}
+    <!-- {{> distance}} -->
+  <h2> Rio De Flag at Aspen Valley (south): </h2>
+    {{> NavOne}}
+    <br>
+  <h2> Rio De Flag at Aspen Valley (north): </h2>
+    {{> NavTwo}} <br><br>
+    {{>NavNotificationSettings}}
+  </div>
+</template>
+
+<template name="GuestHome">
+  <div class = "guesthome">
+    {{> map}}
+    <!-- {{> distance}} -->
+  <h2> Rio De Flag at Aspen Valley (south): </h2>
+    {{> GuestNavOne}}
+    <br>
+  <h2> Rio De Flag at Aspen Valley (north): </h2>
+    {{> GuestNavTwo}}
+  </div>
+</template>
+
+<template name="loginregister">
+  <br>
+  <h3>User Login</h3>
+  <form class="userLogin">
+    <p><input type="submit" value="User Login"></p>
+  </form>
+  <h3>Guest</h3>
+  <form class="guestLogin">
+    <p><input type="submit" value="Guest Login"></p>
+  </form>
+  <h3>Register</h3>
+  <form class="newRegister">
+    <p><input type="submit" value="Register"></p>
+  </form>
+</template>
+
+<template name="login">
+    <h2>Login</h2>
+    <form class="login">
+        <p>Email: <input type="email" name="email" required></p>
+        <p>Password: <input type="password" name="password" required></p>
+        <p><input type="submit" value="Login"></p>
+    </form>
+</template>
+
+<template name="register">
+    <h2>Register</h2>
+    <form class="register">
+        <p>Email: <input type="email" name="email" required></p>
+        <p>Password: <input type="password" name="password" required></p>
+        <p><input type="submit" value="Register"></p>
+    </form>
+</template>
+
+<template name="Chart">
+  <div class="row">
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+</template>
+
+<template name="gaugeone">
+  <div class = "gaugeone">
+  <style>#draggable { width: 150px; height: 25px; padding: 0.5em; }</style>
+  <h3>Rio De Flag at Aspen Valley (south)</h3>
+  <a href="/Home">Home</a>
+  <button class="starter">Push to start</button>
+  <button class="analyze">Analyze Image</button>
+
+      <div class="inputoutput">
+          <br>
+          <img id="imageSrc" class="photo" alt="No Image" STYLE="height:auto; width:10">
+          <br>
+          <div id="draggable-top"    class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:50%; height:50%"></div>
+          <div id="draggable-bottom" class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:50%; height:50%"></div>
+      </div>
+
+  <form class="user_submission">
+      <!-- <input type="text" name="height" placeholder="Water height" class=" waterheight"/><br> -->
+      <button class = "submit">Submit</button><br><br>
+
+  </form>
+</div>
+</template>
+
+<template name ="gaugeonesubmission">
+  <div class = "gaugeonesubmission">
+    <br>
+    <h3>Submissions for Rio De Flag at Aspen Valley (south)</h3>
+    <br>
+    {{> Chart}}
+    <br><br>
+    <a href ="/Home">Home</a><br><br>
+    <a href ="gaugeone">Submit Data For This Gauge</a>
+    <!--<ul>
+      {{#each submitted_data}}
+      {{> data}}
+      {{/each}}
+    </ul>-->
+  </div>
+</template>
+
+<template name="data">
+    <li>{{height}} {{comments}}</li>
+</template>
+
+<template name="NavOne">
+      <a href="/gaugeone">Submit Data For This Location</a><br><br>
+      <a href="/gaugeonesubmission">View Submitted Data</a>
+</template>
+
+<template name="GuestNavOne">
+      <a href="/gaugeone">Submit Data For This Location</a><br><br>
+      <a href="/gaugeonesubmission">View Submitted Data</a>
+</template>
+
+<template name="NavNotificationSettings">
+      <a href="/notificationSettings">Notification Settings</a>
+</template>
+
+
+
+
+<template name="map">
+  <div class="map-container">
+      <!-- {{> googleMap name="map" options=mapOptions}} -->
+      <!-- If there is a geolocation, display map
+      (Display markers of the water stations is still in progress.) -->
+      {{#unless geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+      {{calculateDistance}}
+
+      <!-- If no geolocation found, display error and map
+      (Display markers of the water stations is still in progress.)-->
+      {{else}}
+      Geolocation failed: {{geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+      {{/unless}}
+  </div>
+</template>
+
+<template name="distance">
+  {{calculateDistance}}
+</template>
+
+<template name="NavTwo">
+      <a href="/gaugetwo">Submit Data For This Location</a><br><br>
+      <a href="/gaugetwosubmission">View Submitted Data</a>
+</template>
+
+<template name="GuestNavTwo">
+      <a href="/gaugetwo">Submit Data For This Location</a><br><br>
+      <a href="/gaugetwosubmission">View Submitted Data</a>
+</template>
+
+<template name="gaugetwo">
+  <div class = "gaugetwo">
+  <style>#draggable { width: 150px; height: 25px; padding: 0.5em; }</style>
+  <h3>Rio De Flag at Aspen Valley (north)</h3>
+  <a href="/Home">Home</a>
+  <button class="starter">Push to start</button>
+  <button class="analyze">Analyze Image</button>
+
+      <div class="inputoutput">
+          <br>
+          <img id="imageSrc" class="photo" alt="No Image" STYLE="height:auto; width:10">
+          <br>
+          <div id="draggable-top"    class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:50%; height:50%"></div>
+          <div id="draggable-bottom" class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:50%; height:50%"></div>
+      </div>
+
+  <form class="user_submission">
+      <!-- <input type="text" name="height" placeholder="Water height" class=" waterheight"/><br> -->
+      <button class = "submit">Submit</button><br><br>
+
+  </form>
+</div>
+</template>
+
+<template name ="gaugetwosubmission">
+  <div class = "gaugetwosubmission">
+    <br>
+    <h3>Submissions for Rio De Flag at Aspen Valley (north)</h3>
+    <br>
+    {{> Chart}}
+    <br><br>
+    <a href ="/Home">Home</a><br><br>
+    <a href ="gaugetwo">Submit Data For This Gauge</a>
+    <!--<ul>
+      {{#each submitted_data}}
+      {{> data}}
+      {{/each}}
+    </ul>-->
+  </div>
+</template>
+
+<template name="notificationSettings">
+  <br>
+  <p>Notification Settings:</p>
+   <form class="notificationTask">
+     <input type="radio" name="notificationToggleForm" value="on">On <br>
+     <input type="radio" name="notificationToggleForm" value="off">Off <br>
+     <br>
+     <!-- <p>Time When Receive Notifications:</p>
+     <input type = "radio" name = "notificationTimeForm" value="5" id="timeRadio"> 5 minutes <br>
+     <input type = "radio" name = "notificationTimeForm" value="30" id="timeRadio"> 30 minutes <br>
+     <input type = "radio" name = "notificationTimeForm" value="60" id="timeRadio"> 1 hour <br>
+     <br> -->
+     <p>Distance to Receive Notification (in meters)</p>
+     <input type = "radio" name = "notificationProxForm" value="50" id="proxRadio"> 50  <br>
+     <input type = "radio" name = "notificationProxForm" value="100" id="proxRadio"> 100 <br>
+     <input type = "radio" name = "notificationProxForm" value="200" id="proxRadio"> 200 <br><br>
+     <input type = "submit" value = "Confirm">
+   </form>
+</template>
