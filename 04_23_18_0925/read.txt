@@ -1,2 +1,0 @@
-Change the array for water_stations 
-Change wherever you see .setcontent to (stationiInfoWindow.setContent(water_stations[i][3]))
