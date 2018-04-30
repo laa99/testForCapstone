@@ -1,2 +1,0 @@
-1. Added getOpenWeather and weatherHumidityTestMessage method in the main.js in server.
-2. Added lines 722 - 732 in the body.js
