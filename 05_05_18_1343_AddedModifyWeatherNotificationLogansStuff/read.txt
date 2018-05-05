@@ -1,0 +1,3 @@
+Changed the Main.js from server. The getOpenWeather and changed WeatherHumidityTextMessage to WeatherDescriptionTextMessage.
+Around line 972, on Template.map.onRendered, removed the conditional statement if user == null and else statement to send the text message.
+Added Meteor.call('getOpenWeather'); at Template.login.events. In the else statement.
