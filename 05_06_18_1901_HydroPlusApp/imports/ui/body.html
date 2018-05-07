@@ -1,0 +1,521 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+
+<body>
+</body>
+
+<!--Navigation bar for a logged in user -->
+<template name="userNavBar">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">HydroPlus</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="home">Home</a></li>
+          <li><a href="about">About</a></li>
+					<li><a href="notificationSettings">Settings</a></li>
+					<a href="#" class="logout">Logout</a>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</template>
+
+<!--Navigation bar for a logged in user -->
+<template name="guestNavBar">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">HydroPlus</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="GuestHome">Home</a></li>
+          <li><a href="about">About</a></li>
+					<li><a href="login">Login</a></li>
+					<li><a href="register">Register</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</template>
+
+<!--about Page -->
+<template name = "about" >
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+	<div class = "aboutInfo">
+    <br><br><br>
+		<h2> About </h2>
+		  <p>HydroPlus was created as a senior Capstone project at Northern Arizona University for the 2017-2018 academic year.</p>
+		  <p>The team consisted of Luis Arroyo(Applied Computer Science),Logan Brewer(Applied Computer Science),Ryan Ladwig(Computer Science) and Kelli Ruddy(Computer Science). </p>
+		  <p>Our mentor was Dr. Eck Doerry.</p>
+		  <p>The client for this project was Dr. Benjamin Ruddell for NAU Complex Systems Informatics Laboratory (CSIL).</p>
+	</div>
+</template>
+
+<template name="Home">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+  <div class = "home">
+    <br><br><br><br>
+    {{> map}}
+    <br>
+  <h2> Rio De Flag at Aspen Valley (south): </h2>
+    {{> NavOne}}
+    <br>
+  <h2> Rio De Flag at Aspen Valley (north): </h2>
+    {{> NavTwo}}
+    <br>
+  <h2> School of Informatics and Computing Cyber Systems(SICCS): </h2>
+      {{> NavThree}}
+    <br><br>
+  </div>
+</template>
+
+
+<template name="GuestHome">
+	<!--Show the correct navigation bar based on if a user or not -->
+	 {{#if currentUser}}
+ 	 			{{ >userNavBar}}
+ 	 {{else}}
+ 		   	{{ >guestNavBar}}
+ 	 {{/if}}
+  <div class = "guesthome">
+    <br><br><br><br>
+    {{> guestmap}}
+    <br>
+  <h2> Rio De Flag at Aspen Valley (south): </h2>
+    {{> GuestNavOne}}
+    <br>
+  <h2> Rio De Flag at Aspen Valley (north): </h2>
+    {{> GuestNavTwo}}
+    <br>
+  <h2> School of Informatics and Computing Cyber Systems(SICCS): </h2>
+    {{> GuestNavThree}}
+  <br><br>
+  </div>
+</template>
+
+
+<template name="loginregister">
+  <br>
+  <h3>User Login</h3>
+  <form class="userLogin">
+    <p><input type="submit" value="User Login"></p>
+  </form>
+  <h3>Guest</h3>
+  <form class="guestLogin">
+    <p><input type="submit" value="Guest Login"></p>
+  </form>
+  <h3>Register</h3>
+  <form class="newRegister">
+    <p><input type="submit" value="Register"></p>
+  </form>
+</template>
+
+
+<template name="login">
+    <h2>Login</h2>
+    <form class="login">
+        <p>Email: <input type="email" name="email" required></p>
+        <p>Password: <input type="password" name="password" required></p>
+        <p><input type="submit" value="Login"></p>
+    </form>
+</template>
+
+
+<template name="register">
+    <h2>Register</h2>
+    <form class="register">
+        <p>Email: <input type="email" name="email" required></p>
+        <p>Password: <input type="password" name="password" required></p>
+        <p><input type="submit" value="Register"></p>
+    </form>
+</template>
+
+
+<template name="Chart">
+  <div class="row">
+    <canvas id="myChart" style="width: 375px; height: 375px"></canvas>
+  </div>
+</template>
+
+
+<template name="gaugeone">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+ <div class = "gaugeone">
+  <style>#draggable { width: 150px; height: 25px; padding: 0.5em; }</style>
+     <br><br><br><br>
+  <button class="starter">Take Photo</button>
+
+      <div class="inputoutput">
+          <img id="imageSrc" class="photo" alt="No Image" STYLE="height:auto; width:10">
+          <br>
+          <div id="draggable-top"    class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:75%; height:75%"></div>
+          <div id="draggable-bottom" class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:75%; height:75%"></div>
+      </div>
+
+    <form class="user_submission" id="submitButton">
+      <!-- <input type="text" name="height" placeholder="Water height" class=" waterheight"/><br> -->
+      <br><button class = "submit">Submit</button><br>
+    </form>
+  </div>
+</template>
+
+
+<template name ="gaugeonesubmission">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+  <div class = "gaugeonesubmission">
+    <br><br><br>
+    <h3>Submissions for Rio De Flag at Aspen Valley (south)</h3>
+    <br>
+    {{> Chart}}
+    <br><br>
+    <form class ="gaugeOneSubmit">
+  		<input type="submit" value="Submit Data For This Gauge">
+  	</form>
+  </div>
+</template>
+
+<template name ="gaugeonesubmissionguest">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+  <div class = "gaugeonesubmissionguest">
+    <br><br><br>
+    <h3>Submissions for Rio De Flag at Aspen Valley (south)</h3>
+    <br>
+    {{> Chart}}
+    <br><br>
+    <form class ="gaugeOneSubmit">
+  		<input type="submit" value="Submit Data For This Gauge">
+  	</form>
+  </div>
+</template>
+
+
+<template name="NavOne">
+  <br>
+  <form class ="submit1">
+		<input type="submit" value="Submit Data For This Location">
+	</form>
+	<br>
+  <form class ="submissions1">
+		<input type="submit" value="View Submissions For This Location">
+	</form>
+</template>
+
+
+<template name="GuestNavOne">
+  <br>
+  <form class ="submitGuest1">
+		<input type="submit" value="Submit Data For This Location">
+	</form>
+	<br>
+  <form class ="submissionsGuest1">
+		<input type="submit" value="View Submissions For This Location">
+	</form>
+</template>
+
+<template name="NavNotificationSettings">
+  <br>
+  <form class ="notifsettings">
+		<input type="submit" value="Change Notifications Settings">
+	</form>
+</template>
+
+
+<template name="map">
+  <div class="map-container">
+      <!-- {{> googleMap name="map" options=mapOptions}} -->
+      <!-- If there is a geolocation, display map
+      (Display markers of the water stations is still in progress.) -->
+      {{#unless geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+      {{calculateDistance}}
+
+      <!-- If no geolocation found, display error and map
+      (Display markers of the water stations is still in progress.)-->
+      {{else}}
+      Geolocation failed: {{geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+      {{/unless}}
+  </div>
+</template>
+
+<template name="guestmap">
+  <div class="map-container">
+      <!-- {{> googleMap name="map" options=mapOptions}} -->
+      <!-- If there is a geolocation, display map
+      (Display markers of the water stations is still in progress.) -->
+      {{#unless geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+      {{calculateDistance}}
+
+      <!-- If no geolocation found, display error and map
+      (Display markers of the water stations is still in progress.)-->
+      {{else}}
+      Geolocation failed: {{geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+      {{/unless}}
+  </div>
+</template>
+
+
+<template name="distance">
+  {{calculateDistance}}
+</template>
+
+
+<template name="NavTwo">
+  <br>
+  <form class ="submit2">
+		<input type="submit" value="Submit Data For This Location">
+	</form>
+	<br>
+  <form class ="submissions2">
+		<input type="submit" value="View Submissions For This Location">
+	</form>
+</template>
+
+
+<template name="GuestNavTwo">
+  <br>
+  <form class ="submitGuest2">
+		<input type="submit" value="Submit Data For This Location">
+	</form>
+	<br>
+  <form class ="submissionsGuest2">
+		<input type="submit" value="View Submissions For This Location">
+	</form>
+</template>
+
+
+<template name="gaugetwo">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+ <div class = "gaugetwo">
+  <style>#draggable { width: 150px; height: 25px; padding: 0.5em; }</style>
+  <br><br><br><br>
+  <button class="starter">Take Photo</button>
+
+      <div class="inputoutput">
+          <img id="imageSrc" class="photo" alt="No Image" STYLE="height:auto; width:10">
+          <br>
+          <div id="draggable-top"    class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:75%; height:75%"></div>
+          <div id="draggable-bottom" class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:75%; height:75%"></div>
+      </div>
+
+  <form class="user_submission" id="submitButton">
+      <!-- <input type="text" name="height" placeholder="Water height" class=" waterheight"/><br> -->
+      <br><button class = "submit" href ="/Home">Submit</button><br>
+  </form>
+ </div>
+</template>
+
+
+<template name ="gaugetwosubmission">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+  <div class = "gaugetwosubmission">
+    <br><br><br>
+    <h3>Submissions for Rio De Flag at Aspen Valley (north)</h3>
+    <br>
+    {{> Chart}}
+    <br><br>
+    <form class ="gaugeTwoSubmit">
+      <input type="submit" value="Submit Data For This Gauge">
+    </form>
+  </div>
+</template>
+
+
+<template name ="gaugetwosubmissionguest">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+  <div class = "gaugetwosubmissionguest">
+    <br><br><br>
+    <h3>Submissions for Rio De Flag at Aspen Valley (north)</h3>
+    <br>
+    {{> Chart}}
+    <br><br>
+    <form class ="gaugeTwoSubmit">
+      <input type="submit" value="Submit Data For This Gauge">
+    </form>
+  </div>
+</template>
+
+
+<template name="NavThree">
+  <br>
+  <form class ="submit3">
+		<input type="submit" value="Submit Data For This Location">
+	</form>
+	<br>
+  <form class ="submissions3">
+		<input type="submit" value="View Submissions For This Location">
+	</form>
+</template>
+
+
+<template name="GuestNavThree">
+  <br>
+  <form class ="submitGuest3">
+		<input type="submit" value="Submit Data For This Location">
+	</form>
+	<br>
+  <form class ="submissionsGuest3">
+		<input type="submit" value="View Submissions For This Location">
+	</form>
+</template>
+
+
+<template name="gaugethree">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+ <div class = "gaugethree">
+  <style>#draggable { width: 150px; height: 25px; padding: 0.5em; }</style>
+  <br><br><br><br>
+  <button class="starter">Take Photo</button>
+
+      <div class="inputoutput">
+          <img id="imageSrc" class="photo" alt="No Image" STYLE="height:auto; width:10">
+          <br>
+          <div id="draggable-top"    class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:75%; height:75%"></div>
+          <div id="draggable-bottom" class="ui-widget-content" STYLE="position:absolute; TOP:-200px; LEFT:0px">
+            <img src="test_selector1.png" STYLE="width:75%; height:75%"></div>
+      </div>
+
+  <form class="user_submission" id="submitButton">
+      <!-- <input type="text" name="height" placeholder="Water height" class=" waterheight"/><br> -->
+      <br><button class = "submit" href ="/Home">Submit</button><br>
+  </form>
+ </div>
+</template>
+
+
+<template name ="gaugethreesubmission">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+  <div class = "gaugethreesubmission">
+    <br><br><br>
+    <h3>Submissions for School of Informatics and Cyber Systems(SICCS)</h3>
+    <br>
+    {{> Chart}}
+    <br><br>
+    <form class ="gaugeThreeSubmit">
+      <input type="submit" value="Submit Data For This Gauge">
+    </form>
+  </div>
+</template>
+
+
+<template name ="gaugethreesubmissionguest">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+  <div class = "gaugethreesubmissionguest">
+    <br><br><br>
+    <h3>Submissions for School of Informatics and Cyber Systems(SICCS)</h3>
+    <br>
+    {{> Chart}}
+    <br><br>
+    <form class ="gaugeThreeSubmit">
+      <input type="submit" value="Submit Data For This Gauge">
+    </form>
+  </div>
+</template>
+
+
+<template name="notificationSettings">
+	<!--Show the correct navigation bar based on if a user or not -->
+		 {{#if currentUser}}
+	 	 			{{ >userNavBar}}
+	 	 {{else}}
+	 		   	{{ >guestNavBar}}
+	 	 {{/if}}
+  <br><br><br><br><br>
+  <p>Notification Settings:</p>
+   <form class="notificationTask">
+     <input type="radio" name="notificationToggleForm" value="on">On <br>
+     <input type="radio" name="notificationToggleForm" value="off">Off <br>
+     <br>
+     <!-- <p>Time When Receive Notifications:</p>
+     <input type = "radio" name = "notificationTimeForm" value="5" id="timeRadio"> 5 minutes <br>
+     <input type = "radio" name = "notificationTimeForm" value="30" id="timeRadio"> 30 minutes <br>
+     <input type = "radio" name = "notificationTimeForm" value="60" id="timeRadio"> 1 hour <br>
+     <br> -->
+     <p>Distance to Receive Notification (in meters)</p>
+     <input type = "radio" name = "notificationProxForm" value="50" id="proxRadio"> 50  <br>
+     <input type = "radio" name = "notificationProxForm" value="100" id="proxRadio"> 100 <br>
+     <input type = "radio" name = "notificationProxForm" value="200" id="proxRadio"> 200 <br><br>
+     <input type = "submit" value = "Confirm">
+   </form>
+</template>
